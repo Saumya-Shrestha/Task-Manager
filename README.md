@@ -4,16 +4,6 @@ A full-stack task management application built with **React**, **Material-UI**, 
 
 ## Installation
 
-### Prerequisites
-
-Ensure you have the following installed on your system:
-
-- **Node.js** (v16 or later)
-- **npm** or **yarn**
-- **PostgreSQL** (v12 or later)
-
----
-
 ### Backend Setup
 
 1. Clone the repository:
@@ -79,3 +69,21 @@ Ensure you have the following installed on your system:
 ## License
 
 This project is open-sourced under the [MIT license](./LICENSE).
+
+### Note (Render deployment (API Issues?, CORS Configuration Issue?))
+- Deployed the backend as web-service at https://task-manager-jwum.onrender.com
+- Deployed the frontend as static-site at https://task-manager-frontend-iwtj.onrender.com
+
+### Steps taken so far to resolve the issue  
+- Changed (/frontend/src/api/tasks.js) <br />
+`const API_URL = "http://localhost:5000/api/tasks";` to <br />
+`const API_URL = "https://task-manager-jwum.onrender.com/api/tasks";`
+
+- Changed (/backend/middleware/cors.middleware.js) <br />
+`const corsOptions = {
+  origin: "*",
+};` to <br />
+`const corsOptions = {
+  origin: "https://task-manager-frontend-iwtj.onrender.com",
+};`
+
