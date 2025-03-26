@@ -1,7 +1,7 @@
 import cors from "cors";
 
 const corsOptions = {
-  origin: "https://task-manager-frontend-iwtj.onrender.com",
+  origin: "*",
 };
 
 const initializeCors = () => cors(corsOptions);
