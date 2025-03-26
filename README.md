@@ -70,6 +70,8 @@ A full-stack task management application built with **React**, **Material-UI**, 
 
 This project is open-sourced under the [MIT license](./LICENSE).
 
+---
+
 ### Note (Render deployment (API Issues?, CORS Configuration Issue?))
 - Deployed the backend as web-service at https://task-manager-jwum.onrender.com
 - Deployed the frontend as static-site at https://task-manager-frontend-iwtj.onrender.com
