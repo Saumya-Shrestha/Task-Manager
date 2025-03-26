@@ -1,35 +1,71 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import TaskList from "./components/TaskList";
+import TaskForm from "./components/TaskForm";
+import {
+  Container,
+  Snackbar,
+  Alert,
+  Typography,
+  CssBaseline,
+} from "@mui/material";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const [taskToEdit, setTaskToEdit] = useState(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [notification, setNotification] = useState(null);
+
+  const showNotification = (type, message) => {
+    setNotification({ type, message });
+  };
+
+  const handleTaskSaved = () => {
+    setTaskToEdit(null);
+    setRefreshTrigger((prev) => prev + 1);
+    showNotification("success", "Task saved successfully!");
+  };
+
+  const handleCloseNotification = () => {
+    setNotification(null);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <CssBaseline />
+      <Container maxWidth="md" className="app-container">
+        <Typography variant="h3" component="h1" className="app-title">
+          Task Manager
+        </Typography>
 
-export default App
+        <Snackbar
+          open={!!notification}
+          autoHideDuration={3000}
+          onClose={handleCloseNotification}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
+          <Alert
+            onClose={handleCloseNotification}
+            severity={notification?.type}
+            className="notification-alert"
+          >
+            {notification?.message}
+          </Alert>
+        </Snackbar>
+
+        <TaskForm
+          taskToEdit={taskToEdit}
+          onTaskSaved={handleTaskSaved}
+          showNotification={showNotification}
+        />
+
+        <TaskList
+          refreshTrigger={refreshTrigger}
+          onEdit={setTaskToEdit}
+          showNotification={showNotification}
+        />
+      </Container>
+    </>
+  );
+};
+
+export default App;
