@@ -34,7 +34,7 @@ export const create = (req, res) => {
 export const findAll = (req, res) => {
   const title = req.query?.title;
   var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
-  Tasks.findAll({ where: condition })
+  Tasks.findAll({ where: condition, order: [["id", "ASC"]] })
     .then((data) => {
       res.send(data);
     })
