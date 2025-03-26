@@ -20,7 +20,8 @@ const TaskList = ({ refreshTrigger, onEdit, showNotification }) => {
         const data = await getTasks();
         setTasks(data);
       } catch (error) {
-        showNotification(error, "Failed to load tasks");
+        console.error("API Error:", error);
+        showNotification("error", "Failed to load tasks");
       }
     };
     fetchTasks();
@@ -34,7 +35,8 @@ const TaskList = ({ refreshTrigger, onEdit, showNotification }) => {
       showNotification("success", "Task deleted successfully");
       setTasks((prev) => prev.filter((task) => task.id !== id));
     } catch (error) {
-      showNotification(error, "Failed to delete task");
+      console.error("API Error:", error);
+      showNotification("error", "Failed to delete task");
     } finally {
       setLoadingTaskId(null);
     }
@@ -47,7 +49,8 @@ const TaskList = ({ refreshTrigger, onEdit, showNotification }) => {
       await updateTask(task.id, updatedTask);
       setTasks((prev) => prev.map((t) => (t.id === task.id ? updatedTask : t)));
     } catch (error) {
-      showNotification(error, "Failed to update task status");
+      console.error("API Error:", error);
+      showNotification("error", "Failed to update task status");
     } finally {
       setLoadingTaskId(null);
     }

@@ -33,8 +33,9 @@ const TaskForm = ({ taskToEdit, onTaskSaved, showNotification }) => {
       onTaskSaved();
       setTask({ title: "", description: "", completed: false });
     } catch (error) {
+      console.error("API Error:", error);
       showNotification(
-        error,
+        "error",
         task.id ? "Failed to update task" : "Failed to create task"
       );
     } finally {
